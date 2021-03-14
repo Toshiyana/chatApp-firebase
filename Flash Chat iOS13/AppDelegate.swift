@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //Firebaseに関する記述（cocoapods）
+        FirebaseApp.configure()
+        let db = Firestore.firestore()
+        print(db)//cloud firestoreがちゃんと使えるかのテスト(<FIRFirestore: 0x6000019e0b40>みたいなのが出力されてればok)
+        
+        //IQKeyboardManagerに関する記述（cocoapods）
+        IQKeyboardManager.shared.enable = true//導入
+        //各プロパティの設定（https://github.com/hackiftekhar/IQKeyboardManager/wiki/Properties-&-Functions）
+        IQKeyboardManager.shared.enableAutoToolbar = false//Toolbarの非表示
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true//キーボード外をtapしたらキーボードを閉じる
+        
         return true
     }
 
